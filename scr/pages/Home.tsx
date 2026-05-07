@@ -194,15 +194,17 @@ export default function Home() {
       <section className="py-20">
         <div className="max-w-5xl mx-auto px-4">
           <div className="bg-primary-sage rounded-[3rem] p-12 md:p-20 text-center text-white relative overflow-hidden shadow-2xl shadow-primary-sage/30">
-            <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.1),transparent)]" />
-            <h2 className="text-4xl md:text-6xl text-white mb-8">Anda Tidak Sendirian. <br/><span className="italic opacity-90 text-primary-lavender">Cerita Anda Aman di Sini.</span></h2>
-            <p className="text-lg md:text-xl opacity-90 mb-12 max-w-2xl mx-auto">
-              Berikan diri Anda kesempatan untuk pulih. Kami sedia mendengarkan kapan pun Anda merasa siap.
-            </p>
-            <div className="flex flex-wrap justify-center gap-6">
-              <Link to="/counseling" className="btn-soft bg-white text-primary-sage hover:bg-base-cream shadow-lg text-lg px-10">
-                Konsultasi Sekarang
-              </Link>
+            <div className="pointer-events-none absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.1),transparent)]" />
+            <div className="relative z-10">
+              <h2 className="text-4xl md:text-6xl text-white mb-8">Anda Tidak Sendirian. <br/><span className="italic opacity-90 text-primary-lavender">Cerita Anda Aman di Sini.</span></h2>
+              <p className="text-lg md:text-xl opacity-90 mb-12 max-w-2xl mx-auto">
+                Berikan diri Anda kesempatan untuk pulih. Kami sedia mendengarkan kapan pun Anda merasa siap.
+              </p>
+              <div className="flex flex-wrap justify-center gap-6">
+                <Link to="/counseling" className="btn-soft bg-white text-primary-sage hover:bg-base-cream shadow-lg text-lg px-10">
+                  Konsultasi Sekarang
+                </Link>
+              </div>
             </div>
           </div>
         </div>
