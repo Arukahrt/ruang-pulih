@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { Shield, MessageCircle, Brain, BookOpen, ArrowRight, Heart, Users, Lock, Clock, BookMarked } from 'lucide-react';
+
 import { Link } from 'react-router-dom';
 import { articles } from '../data/articles';
 
@@ -19,11 +20,11 @@ const services = [
     path: '/assessment'
   },
   {
-    title: 'Laporan Anonim',
-    description: 'Ceritakan pengalaman Anda tanpa rasa takut akan identitas Anda.',
-    icon: Lock,
+    title: 'Curhat & Cerita',
+    description: 'Ceritakan pengalaman Anda dalam ruang aman bersama konselor yang mendengarkan tanpa menghakimi.',
+    icon: Heart,
     color: 'bg-primary-lavender',
-    path: '/report'
+    path: '/counseling'
   },
   {
     title: 'Edukasi Digital',

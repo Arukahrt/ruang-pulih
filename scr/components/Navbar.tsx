@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { cn } from '../lib/utils';
-import { Shield, Brain, MessageCircle, BookOpen, HelpCircle, Menu, X, Lock, BookMarked } from 'lucide-react';
+import { Shield, Brain, MessageCircle, BookOpen, HelpCircle, Menu, X, BookMarked } from 'lucide-react';
 
 const navItems = [
   { name: 'Home', path: '/', icon: Shield },
@@ -54,10 +54,10 @@ export default function Navbar() {
               );
             })}
             <Link
-              to="/report"
+              to="/counseling"
               className="ml-4 btn-soft bg-primary-sage text-white hover:bg-primary-sage/90 shadow-md shadow-primary-sage/20"
             >
-              Report Harassment
+              Mulai Konseling
             </Link>
           </div>
 
@@ -101,12 +101,12 @@ export default function Navbar() {
                 );
               })}
               <Link
-                to="/report"
+                to="/counseling"
                 onClick={() => setMenuOpen(false)}
                 className="mt-2 flex items-center gap-3 px-4 py-3 rounded-2xl bg-primary-sage text-white text-sm font-semibold"
               >
-                <Lock size={18} />
-                Report Harassment
+                <MessageCircle size={18} />
+                Mulai Konseling
               </Link>
             </div>
           </motion.div>

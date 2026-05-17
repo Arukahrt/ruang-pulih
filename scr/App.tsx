@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Assessment from './pages/Assessment';
-import AnonymousReport from './pages/AnonymousReport';
 import Counseling from './pages/Counseling';
 import Education from './pages/Education';
 import FAQ from './pages/FAQ';
@@ -45,7 +44,6 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/assessment" element={<Assessment />} />
-            <Route path="/report" element={<AnonymousReport />} />
             <Route path="/counseling" element={<Counseling />} />
             <Route path="/education" element={<Education />} />
             <Route path="/education/:id" element={<ArticleDetail />} />
