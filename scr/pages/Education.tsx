@@ -1,81 +1,8 @@
 import { motion } from 'motion/react';
-import { BookOpen, Search, ArrowRight, Clock, Star, Filter } from 'lucide-react';
+import { BookOpen, Search, ArrowRight, Clock, Filter } from 'lucide-react';
 import { useMemo, useState } from 'react';
-
-const articles = [
-  {
-    category: 'Digital Awareness',
-    title: 'Mengenal Online Sexual Harassment: Ketika Pelecehan Terjadi di Balik Layar',
-    excerpt: 'Online sexual harassment adalah segala bentuk pelecehan seksual melalui ruang digital. Ia terjadi di balik layar, tapi lukanya tidak kalah nyata. Kenali bentuk-bentuknya: cyberbullying berbasis seksual, sextortion, penyebaran konten intim tanpa izin, hingga stalking digital.',
-    author: 'Tim Ruang Pulih Online',
-    readTime: '4 menit',
-    image: 'https://picsum.photos/seed/rp-osh/600/400'
-  },
-  {
-    category: 'Mental Health',
-    title: 'Luka yang Tak Selalu Terlihat: Dampak Psikologis Online Sexual Harassment',
-    excerpt: 'Luka dari pelecehan digital itu nyata — sama nyatanya dengan luka di dunia fisik. Korban bisa mengalami kecemasan intens, perasaan sedih berkepanjangan, gejala trauma, hingga rasa malu yang menggerus kepercayaan diri. Memahami dampak ini penting agar dukungan yang diberikan benar-benar tepat.',
-    author: 'Tim Ruang Pulih Online',
-    readTime: '4 menit',
-    image: 'https://picsum.photos/seed/rp-luka/600/400'
-  },
-  {
-    category: 'Self Care',
-    title: 'Berhenti Menyalahkan Korban: Memahami Stigma dan Mengapa Itu Berbahaya',
-    excerpt: 'Victim blaming terjadi ketika masyarakat menempatkan beban tanggung jawab atas kekerasan kepada korban, bukan pelaku. Stigma ini memperburuk trauma, membungkam korban, dan melanggengkan kekerasan itu sendiri. Pelajari cara merespons korban dengan empati yang sesungguhnya.',
-    author: 'Tim Ruang Pulih Online',
-    readTime: '4 menit',
-    image: 'https://picsum.photos/seed/rp-stigma/600/400'
-  },
-  {
-    category: 'Digital Safety',
-    title: 'Menjaga Diri di Ruang Digital: Langkah-langkah yang Bisa Dimulai Hari Ini',
-    excerpt: 'Melindungi diri adalah hak, bukan syarat untuk layak dihormati. Mulai dari meninjau pengaturan privasi, menjaga informasi pribadi, mengamankan akun, hingga langkah yang perlu diambil ketika situasi sudah terasa mengancam — panduan praktis untuk merasa lebih aman secara digital.',
-    author: 'Tim Ruang Pulih Online',
-    readTime: '5 menit',
-    image: 'https://picsum.photos/seed/rp-aman/600/400'
-  },
-  {
-    category: 'Digital Safety',
-    title: 'Mengenal Batasan di Dunia Digital: Interaksi yang Sehat di Media Sosial',
-    excerpt: 'Batasan digital adalah batas yang kita tetapkan tentang bagaimana orang lain boleh berinteraksi dengan kita secara online. Kamu tidak berutang respons, penjelasan, atau kehadiranmu di ruang digital kepada siapa pun. Menentukan batasan bukan tanda kelemahan — itu bentuk mengenal dan menghargai diri sendiri.',
-    author: 'Tim Ruang Pulih Online',
-    readTime: '5 menit',
-    image: 'https://picsum.photos/seed/rp-batas/600/400'
-  },
-  {
-    category: 'Digital Safety',
-    title: 'Membangun Batasan Sehat di Media Sosial',
-    excerpt: 'Cara menjaga privasi dan kesehatan mental Anda dari interaksi digital yang toksik.',
-    author: 'Tim Psikolog',
-    readTime: '5 menit',
-    image: 'https://picsum.photos/seed/ed1/600/400'
-  },
-  {
-    category: 'Mental Health',
-    title: 'Pulih dari Trauma Kekerasan Seksual Online',
-    excerpt: 'Langkah awal untuk mengenali trauma dan cara mencari dukungan profesional yang tepat.',
-    author: 'Konselor Ruang Pulih',
-    readTime: '8 menit',
-    image: 'https://picsum.photos/seed/ed2/600/400'
-  },
-  {
-    category: 'Self Care',
-    title: 'Tips Detoks Digital untuk Ketenangan Pikiran',
-    excerpt: 'Sederet aktivitas offline yang bisa membantu mengembalikan keseimbangan emosional Anda.',
-    author: 'Ahli Wellbeing',
-    readTime: '4 menit',
-    image: 'https://picsum.photos/seed/ed3/600/400'
-  },
-  {
-    category: 'Digital Awareness',
-    title: 'Mengenali Bentuk-Bentuk Sextortion',
-    excerpt: 'Edukasi mendalam tentang apa itu sextortion dan bagaimana cara melaporkannya.',
-    author: 'Divisi Edukasi',
-    readTime: '6 menit',
-    image: 'https://picsum.photos/seed/ed4/600/400'
-  }
-];
+import { Link } from 'react-router-dom';
+import { articles } from '../data/articles';
 
 const categories = ['Semua', 'Digital Safety', 'Mental Health', 'Self Care', 'Digital Awareness'];
 
@@ -104,7 +31,7 @@ export default function Education() {
             Bekali diri Anda dengan pengetahuan untuk berinteraksi secara sehat dan aman di ruang digital.
           </p>
         </div>
-        
+
         <div className="w-full md:w-80 relative">
           <input
             type="text"
@@ -126,8 +53,8 @@ export default function Education() {
             key={cat}
             onClick={() => setActiveCategory(cat)}
             className={`px-6 py-2 rounded-xl text-sm font-semibold transition-all duration-300 ${
-              activeCategory === cat 
-                ? 'bg-primary-sage text-white shadow-lg shadow-primary-sage/20' 
+              activeCategory === cat
+                ? 'bg-primary-sage text-white shadow-lg shadow-primary-sage/20'
                 : 'bg-white text-text-muted hover:bg-base-cream'
             }`}
           >
@@ -142,8 +69,8 @@ export default function Education() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
         {filteredArticles.map((article, index) => (
-          <motion.article 
-            key={index}
+          <motion.article
+            key={article.id}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
@@ -151,9 +78,9 @@ export default function Education() {
             className="group flex flex-col md:flex-row bg-white rounded-[2.5rem] overflow-hidden card-shadow hover:translate-y-[-4px] transition-all duration-500 border border-transparent hover:border-primary-sage/10"
           >
             <div className="md:w-2/5 relative overflow-hidden">
-              <img 
-                src={article.image} 
-                alt={article.title} 
+              <img
+                src={article.image}
+                alt={article.title}
                 className="w-full h-64 md:h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 referrerPolicy="no-referrer"
               />
@@ -164,7 +91,6 @@ export default function Education() {
             <div className="md:w-3/5 p-8 flex flex-col">
               <div className="flex items-center gap-4 text-xs text-text-muted mb-4 uppercase font-bold tracking-widest">
                 <span className="flex items-center gap-1"><Clock size={14} /> {article.readTime}</span>
-                <span className="flex items-center gap-1"><Star size={14} fill="currentColor" /> Favorit</span>
               </div>
               <h3 className="text-xl md:text-2xl mb-4 group-hover:text-primary-sage transition-colors">{article.title}</h3>
               <p className="text-text-muted text-sm leading-relaxed mb-6 flex-grow">{article.excerpt}</p>
@@ -175,9 +101,13 @@ export default function Education() {
                   </div>
                   <span className="text-xs font-semibold text-text-main">{article.author}</span>
                 </div>
-                <button className="text-primary-sage p-2 rounded-full hover:bg-primary-sage/10 transition-colors">
+                <Link
+                  to={`/education/${article.id}`}
+                  className="text-primary-sage p-2 rounded-full hover:bg-primary-sage/10 transition-colors"
+                  aria-label={`Baca ${article.title}`}
+                >
                   <ArrowRight size={20} />
-                </button>
+                </Link>
               </div>
             </div>
           </motion.article>
@@ -189,9 +119,9 @@ export default function Education() {
           <h2 className="text-3xl mb-4 font-serif text-text-main">Membutuhkan Bantuan Khusus?</h2>
           <p className="text-text-muted">Tim kami siap membantu Anda memahami kondisi yang Anda alami secara lebih mendalam melalui sesi tanya jawab privat.</p>
         </div>
-        <button className="btn-soft bg-primary-lavender text-white shadow-lg shadow-primary-lavender/20 px-10 whitespace-nowrap">
+        <Link to="/counseling" className="btn-soft bg-primary-lavender text-white shadow-lg shadow-primary-lavender/20 px-10 whitespace-nowrap">
           Tanya Konselor
-        </button>
+        </Link>
       </div>
     </div>
   );

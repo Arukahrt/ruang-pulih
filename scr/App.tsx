@@ -8,6 +8,7 @@ import Counseling from './pages/Counseling';
 import Education from './pages/Education';
 import FAQ from './pages/FAQ';
 import Jurnal from './pages/Jurnal';
+import ArticleDetail from './pages/ArticleDetail';
 
 function PanicExitButton() {
   const handleExit = () => {
@@ -47,6 +48,7 @@ export default function App() {
             <Route path="/report" element={<AnonymousReport />} />
             <Route path="/counseling" element={<Counseling />} />
             <Route path="/education" element={<Education />} />
+            <Route path="/education/:id" element={<ArticleDetail />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/jurnal" element={<Jurnal />} />
           </Routes>
