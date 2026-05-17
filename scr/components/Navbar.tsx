@@ -2,13 +2,14 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { cn } from '../lib/utils';
-import { Shield, Brain, MessageCircle, BookOpen, HelpCircle, Menu, X, Lock } from 'lucide-react';
+import { Shield, Brain, MessageCircle, BookOpen, HelpCircle, Menu, X, Lock, BookMarked } from 'lucide-react';
 
 const navItems = [
   { name: 'Home', path: '/', icon: Shield },
   { name: 'Counseling', path: '/counseling', icon: MessageCircle },
   { name: 'Assessment', path: '/assessment', icon: Brain },
   { name: 'Education', path: '/education', icon: BookOpen },
+  { name: 'Jurnal', path: '/jurnal', icon: BookMarked },
   { name: 'FAQ', path: '/faq', icon: HelpCircle },
 ];
 
