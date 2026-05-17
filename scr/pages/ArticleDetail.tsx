@@ -50,7 +50,7 @@ export default function ArticleDetail() {
             src={article.image}
             alt={article.title}
             className="w-full h-72 object-cover"
-            referrerPolicy="no-referrer"
+            crossOrigin="anonymous"
           />
         </div>
 

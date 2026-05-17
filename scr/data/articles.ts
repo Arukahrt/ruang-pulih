@@ -21,7 +21,7 @@ export const articles: Article[] = [
     excerpt: 'Online sexual harassment adalah segala bentuk pelecehan seksual melalui ruang digital. Ia terjadi di balik layar, tapi lukanya tidak kalah nyata. Kenali bentuk-bentuknya: cyberbullying berbasis seksual, sextortion, penyebaran konten intim tanpa izin, hingga stalking digital.',
     author: 'Tim Ruang Pulih Online',
     readTime: '4 menit',
-    image: 'https://picsum.photos/seed/rp-osh/600/400',
+    image: 'https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?auto=format&fit=crop&w=600&h=400&q=80',
     content: [
       { type: 'paragraph', text: 'Mungkin kamu pernah menerima pesan yang membuatmu tidak nyaman. Atau melihat komentar di foto seseorang yang rasanya melewati batas. Atau mendengar cerita teman yang tiba-tiba ketakutan membuka media sosialnya sendiri.' },
       { type: 'paragraph', text: 'Semua itu bukan hal yang sepele. Dan kamu tidak sedang berlebihan jika merasa terganggu.' },
@@ -47,7 +47,7 @@ export const articles: Article[] = [
     excerpt: 'Luka dari pelecehan digital itu nyata — sama nyatanya dengan luka di dunia fisik. Korban bisa mengalami kecemasan intens, perasaan sedih berkepanjangan, gejala trauma, hingga rasa malu yang menggerus kepercayaan diri.',
     author: 'Tim Ruang Pulih Online',
     readTime: '4 menit',
-    image: 'https://picsum.photos/seed/rp-luka/600/400',
+    image: 'https://images.unsplash.com/photo-1516585427167-9f4af9627e6c?auto=format&fit=crop&w=600&h=400&q=80',
     content: [
       { type: 'paragraph', text: '"Kan cuma di internet. Tinggal diblokir saja." Kalimat itu mungkin terdengar familiar. Diucapkan dengan niat baik, tapi tanpa sadar menempatkan beban yang sangat berat di pundak seseorang yang sedang berjuang.' },
       { type: 'paragraph', text: 'Kenyataannya, luka dari pelecehan digital itu nyata — sama nyatanya dengan luka yang terjadi di dunia fisik. Di dunia digital, konten bisa menyebar tanpa batas. Ia bisa dilihat siapa saja, kapan saja, bahkan bertahun-tahun setelah kejadian pertama. Kondisi inilah yang membuat korban sering merasa kehilangan kendali atas hidupnya sendiri.' },
@@ -72,7 +72,7 @@ export const articles: Article[] = [
     excerpt: 'Victim blaming terjadi ketika masyarakat menempatkan beban tanggung jawab atas kekerasan kepada korban, bukan pelaku. Stigma ini memperburuk trauma, membungkam korban, dan melanggengkan kekerasan itu sendiri.',
     author: 'Tim Ruang Pulih Online',
     readTime: '4 menit',
-    image: 'https://picsum.photos/seed/rp-stigma/600/400',
+    image: 'https://images.unsplash.com/photo-1573497620053-ea5300f94f21?auto=format&fit=crop&w=600&h=400&q=80',
     content: [
       { type: 'paragraph', text: '"Ya wajar sih, lihat saja postingannya." "Harusnya lebih hati-hati kalau main media sosial." "Pasti ada yang salah dari pihaknya juga."' },
       { type: 'paragraph', text: 'Kalimat-kalimat seperti itu mungkin sudah tidak asing. Diucapkan di kolom komentar, di obrolan grup, bahkan oleh orang-orang terdekat yang mungkin tidak menyadari betapa menyakitkannya kata-kata itu. Inilah yang disebut stigmatisasi korban — atau dalam istilah yang lebih dikenal, victim blaming.' },
@@ -96,7 +96,7 @@ export const articles: Article[] = [
     excerpt: 'Melindungi diri adalah hak, bukan syarat untuk layak dihormati. Panduan praktis dari pengaturan privasi, keamanan akun, hingga langkah saat situasi sudah terasa mengancam.',
     author: 'Tim Ruang Pulih Online',
     readTime: '5 menit',
-    image: 'https://picsum.photos/seed/rp-aman/600/400',
+    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=600&h=400&q=80',
     content: [
       { type: 'paragraph', text: 'Sebelum membaca lebih jauh, ada satu hal yang perlu digarisbawahi: panduan ini bukan untuk menyiratkan bahwa korban online sexual harassment kurang berhati-hati. Pelecehan terjadi karena pilihan pelaku — bukan karena korban tidak cukup melindungi diri. Tidak ada tingkat kehati-hatian yang menjamin seseorang tidak akan pernah mengalaminya.' },
       { type: 'paragraph', text: 'Yang ada di sini adalah langkah-langkah yang bisa membantu siapa pun merasa lebih aman dan lebih berdaya saat berada di ruang digital. Melindungi diri adalah hak — bukan syarat untuk layak dihormati.' },
@@ -123,7 +123,7 @@ export const articles: Article[] = [
     excerpt: 'Kamu tidak berutang respons, penjelasan, atau kehadiranmu di ruang digital kepada siapa pun. Menentukan batasan bukan tanda kelemahan — itu bentuk mengenal dan menghargai diri sendiri.',
     author: 'Tim Ruang Pulih Online',
     readTime: '5 menit',
-    image: 'https://picsum.photos/seed/rp-batas/600/400',
+    image: 'https://images.unsplash.com/photo-1477346611705-65d1883cee1e?auto=format&fit=crop&w=600&h=400&q=80',
     content: [
       { type: 'paragraph', text: 'Ada sebuah pertanyaan sederhana yang jarang kita tanyakan pada diri sendiri setelah menutup aplikasi media sosial: apakah aku merasa baik-baik saja setelah interaksi tadi?' },
       { type: 'paragraph', text: 'Media sosial dirancang untuk membuat kita terus terhubung. Tapi terhubung dengan siapa, dengan cara apa, dan pada batasan seperti apa — itu adalah hal-hal yang sepenuhnya boleh kita tentukan sendiri.' },
@@ -147,7 +147,7 @@ export const articles: Article[] = [
     excerpt: 'Cara menjaga privasi dan kesehatan mental dari interaksi digital yang toksik, dengan memahami batasan sebagai bentuk penghargaan terhadap diri sendiri.',
     author: 'Tim Psikolog',
     readTime: '5 menit',
-    image: 'https://picsum.photos/seed/ed1/600/400',
+    image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=600&h=400&q=80',
     content: [
       { type: 'paragraph', text: 'Media sosial adalah ruang yang penuh kemungkinan — untuk terhubung, belajar, berbagi, dan berkreasi. Tapi ia juga bisa menjadi ruang yang menguras, menekan, bahkan menyakiti jika kita tidak memiliki batasan yang jelas tentang bagaimana kita ingin berada di sana.' },
       { type: 'paragraph', text: 'Membangun batasan yang sehat bukan tentang menjadi tertutup atau tidak mau bergaul. Ini tentang mengetahui kapasitas diri dan berani merawatnya — bahkan ketika dunia digital seolah menuntut kita untuk selalu tersedia, selalu responsif, dan selalu terlihat baik-baik saja.' },
@@ -173,7 +173,7 @@ export const articles: Article[] = [
     excerpt: 'Pemulihan dari trauma pelecehan seksual online adalah proses, bukan titik tujuan. Langkah awal untuk mengenali trauma dan menemukan cara mencari dukungan profesional yang tepat.',
     author: 'Konselor Ruang Pulih',
     readTime: '8 menit',
-    image: 'https://picsum.photos/seed/ed2/600/400',
+    image: 'https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=600&h=400&q=80',
     content: [
       { type: 'paragraph', text: 'Pulih bukan berarti melupakan. Dan pulih bukan berarti kembali menjadi persis seperti sebelum kejadian. Pemulihan adalah proses menemukan cara untuk hidup dengan apa yang telah terjadi — dan secara bertahap, menemukan kembali rasa aman, kepercayaan diri, dan makna dalam hidup.' },
       { type: 'paragraph', text: 'Proses itu tidak linear. Ada hari-hari yang terasa lebih ringan, dan ada hari-hari yang tiba-tiba terasa sangat berat tanpa alasan yang jelas. Keduanya adalah bagian dari pemulihan yang nyata — bukan tanda bahwa kamu tidak cukup berusaha.' },
@@ -201,7 +201,7 @@ export const articles: Article[] = [
     excerpt: 'Terhubung terus-menerus bukan berarti selalu baik. Pelajari tanda-tanda kamu butuh jeda digital dan aktivitas offline yang bisa membantu mengembalikan keseimbangan emosional.',
     author: 'Ahli Wellbeing',
     readTime: '4 menit',
-    image: 'https://picsum.photos/seed/ed3/600/400',
+    image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=600&h=400&q=80',
     content: [
       { type: 'paragraph', text: 'Ada momen ketika membuka media sosial rasanya seperti membuka pintu ke keramaian yang tidak pernah berhenti. Semua orang berbicara, semua orang menampilkan sesuatu, dan di tengah semua itu kita mencoba mencari jeda — tapi justru semakin lelah.' },
       { type: 'paragraph', text: 'Detoks digital bukan tentang membuang semua perangkat dan bersumpah tidak akan menyentuh internet lagi. Ini tentang memberi diri sendiri ruang untuk bernapas — ruang yang tidak diisi oleh notifikasi, perbandingan, dan konten yang tidak pernah habis.' },
@@ -227,7 +227,7 @@ export const articles: Article[] = [
     excerpt: 'Sextortion adalah kejahatan digital yang serius namun sering tidak dikenali korbannya. Pelajari cara kerjanya, apa yang harus dilakukan, dan yang tidak boleh dilakukan jika mengalaminya.',
     author: 'Divisi Edukasi',
     readTime: '6 menit',
-    image: 'https://picsum.photos/seed/ed4/600/400',
+    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=600&h=400&q=80',
     content: [
       { type: 'paragraph', text: 'Kamu menerima pesan dari seseorang yang mengaku memiliki foto atau video intimmu. Mereka mengancam akan menyebarkannya kepada teman-teman, keluarga, atau rekan kerjamu — kecuali kamu memenuhi permintaan mereka. Permintaan itu bisa berupa uang, lebih banyak konten, atau bahkan pertemuan fisik.' },
       { type: 'paragraph', text: 'Inilah yang disebut sextortion — pemerasan berbasis konten seksual. Dan meskipun terdengar seperti sesuatu yang hanya terjadi pada "orang lain", kejahatan ini jauh lebih umum dari yang kebanyakan orang sadari.' },
