@@ -9,7 +9,7 @@ const navItems = [
   { name: 'Counseling', path: '/counseling', icon: MessageCircle },
   { name: 'Assessment', path: '/assessment', icon: Brain },
   { name: 'Education', path: '/education', icon: BookOpen },
-  { name: 'Jurnal', path: '/jurnal', icon: BookMarked },
+  { name: 'Jurnal Referensi', path: '/jurnal', icon: BookMarked },
   { name: 'FAQ', path: '/faq', icon: HelpCircle },
 ];
 

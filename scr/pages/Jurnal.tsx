@@ -104,7 +104,7 @@ export default function Jurnal() {
           <BookMarked size={32} />
         </div>
         <h1 className="text-4xl md:text-6xl mb-6">
-          Referensi <span className="italic text-primary-sage">Jurnal</span>
+          Jurnal <span className="italic text-primary-sage">Referensi</span>
         </h1>
         <p className="text-lg text-text-muted max-w-2xl">
           Kumpulan jurnal ilmiah sebagai dasar akademis platform Ruang Pulih Online, mencakup perspektif hukum, psikologi, sosiologi, dan komunikasi.
