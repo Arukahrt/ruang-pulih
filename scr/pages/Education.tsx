@@ -4,6 +4,46 @@ import { useMemo, useState } from 'react';
 
 const articles = [
   {
+    category: 'Digital Awareness',
+    title: 'Mengenal Online Sexual Harassment: Ketika Pelecehan Terjadi di Balik Layar',
+    excerpt: 'Online sexual harassment adalah segala bentuk pelecehan seksual melalui ruang digital. Ia terjadi di balik layar, tapi lukanya tidak kalah nyata. Kenali bentuk-bentuknya: cyberbullying berbasis seksual, sextortion, penyebaran konten intim tanpa izin, hingga stalking digital.',
+    author: 'Tim Ruang Pulih Online',
+    readTime: '4 menit',
+    image: 'https://picsum.photos/seed/rp-osh/600/400'
+  },
+  {
+    category: 'Mental Health',
+    title: 'Luka yang Tak Selalu Terlihat: Dampak Psikologis Online Sexual Harassment',
+    excerpt: 'Luka dari pelecehan digital itu nyata — sama nyatanya dengan luka di dunia fisik. Korban bisa mengalami kecemasan intens, perasaan sedih berkepanjangan, gejala trauma, hingga rasa malu yang menggerus kepercayaan diri. Memahami dampak ini penting agar dukungan yang diberikan benar-benar tepat.',
+    author: 'Tim Ruang Pulih Online',
+    readTime: '4 menit',
+    image: 'https://picsum.photos/seed/rp-luka/600/400'
+  },
+  {
+    category: 'Self Care',
+    title: 'Berhenti Menyalahkan Korban: Memahami Stigma dan Mengapa Itu Berbahaya',
+    excerpt: 'Victim blaming terjadi ketika masyarakat menempatkan beban tanggung jawab atas kekerasan kepada korban, bukan pelaku. Stigma ini memperburuk trauma, membungkam korban, dan melanggengkan kekerasan itu sendiri. Pelajari cara merespons korban dengan empati yang sesungguhnya.',
+    author: 'Tim Ruang Pulih Online',
+    readTime: '4 menit',
+    image: 'https://picsum.photos/seed/rp-stigma/600/400'
+  },
+  {
+    category: 'Digital Safety',
+    title: 'Menjaga Diri di Ruang Digital: Langkah-langkah yang Bisa Dimulai Hari Ini',
+    excerpt: 'Melindungi diri adalah hak, bukan syarat untuk layak dihormati. Mulai dari meninjau pengaturan privasi, menjaga informasi pribadi, mengamankan akun, hingga langkah yang perlu diambil ketika situasi sudah terasa mengancam — panduan praktis untuk merasa lebih aman secara digital.',
+    author: 'Tim Ruang Pulih Online',
+    readTime: '5 menit',
+    image: 'https://picsum.photos/seed/rp-aman/600/400'
+  },
+  {
+    category: 'Digital Safety',
+    title: 'Mengenal Batasan di Dunia Digital: Interaksi yang Sehat di Media Sosial',
+    excerpt: 'Batasan digital adalah batas yang kita tetapkan tentang bagaimana orang lain boleh berinteraksi dengan kita secara online. Kamu tidak berutang respons, penjelasan, atau kehadiranmu di ruang digital kepada siapa pun. Menentukan batasan bukan tanda kelemahan — itu bentuk mengenal dan menghargai diri sendiri.',
+    author: 'Tim Ruang Pulih Online',
+    readTime: '5 menit',
+    image: 'https://picsum.photos/seed/rp-batas/600/400'
+  },
+  {
     category: 'Digital Safety',
     title: 'Membangun Batasan Sehat di Media Sosial',
     excerpt: 'Cara menjaga privasi dan kesehatan mental Anda dari interaksi digital yang toksik.',
