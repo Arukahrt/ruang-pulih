@@ -6,7 +6,6 @@ import { Shield, Brain, MessageCircle, BookOpen, HelpCircle, Menu, X, BookMarked
 
 const navItems = [
   { name: 'Home', path: '/', icon: Shield },
-  { name: 'Counseling', path: '/counseling', icon: MessageCircle },
   { name: 'Assessment', path: '/assessment', icon: Brain },
   { name: 'Education', path: '/education', icon: BookOpen },
   { name: 'Jurnal Referensi', path: '/jurnal', icon: BookMarked },
