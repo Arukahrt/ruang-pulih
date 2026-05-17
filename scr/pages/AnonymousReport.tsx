@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { motion } from 'motion/react';
-import { Lock, Sparkles, Upload, Send, ShieldCheck, Heart } from 'lucide-react';
+import { Lock, Sparkles, Upload, Send, ShieldCheck, Heart, X } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 const categories = [
@@ -15,6 +15,25 @@ const categories = [
 export default function AnonymousReport() {
   const [submitted, setSubmitted] = useState(false);
   const [identityMode, setIdentityMode] = useState<'anon' | 'known'>('anon');
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const toggleCategory = (cat: string) => {
+    setSelectedCategories((prev) =>
+      prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat]
+    );
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setUploadedFiles((prev) => [...prev, ...Array.from(e.target.files!)]);
+    }
+  };
+
+  const removeFile = (index: number) => {
+    setUploadedFiles((prev) => prev.filter((_, i) => i !== index));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -99,7 +118,13 @@ export default function AnonymousReport() {
                   <button
                     key={cat}
                     type="button"
-                    className="px-4 py-2 rounded-full border border-primary-sage/20 text-sm font-medium hover:bg-primary-sage/5 hover:border-primary-sage transition-all"
+                    onClick={() => toggleCategory(cat)}
+                    className={cn(
+                      "px-4 py-2 rounded-full border text-sm font-medium transition-all",
+                      selectedCategories.includes(cat)
+                        ? "bg-primary-sage text-white border-primary-sage"
+                        : "border-primary-sage/20 text-text-muted hover:bg-primary-sage/5 hover:border-primary-sage"
+                    )}
                   >
                     {cat}
                   </button>
@@ -118,11 +143,34 @@ export default function AnonymousReport() {
 
             <div className="space-y-4">
               <label className="text-sm font-bold text-text-muted uppercase tracking-wider">Unggah Bukti (Opsional)</label>
-              <div className="border-2 border-dashed border-primary-sage/20 rounded-3xl p-10 text-center hover:bg-primary-sage/5 transition-all group cursor-pointer">
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/png,image/jpeg,application/pdf"
+                multiple
+                className="hidden"
+                onChange={handleFileChange}
+              />
+              <div
+                onClick={() => fileInputRef.current?.click()}
+                className="border-2 border-dashed border-primary-sage/20 rounded-3xl p-10 text-center hover:bg-primary-sage/5 transition-all group cursor-pointer"
+              >
                 <Upload className="mx-auto text-primary-sage/40 mb-4 group-hover:text-primary-sage group-hover:-translate-y-1 transition-all" size={32} />
                 <p className="text-sm text-text-muted">Klik untuk pilih file atau seret file ke sini</p>
                 <p className="text-[10px] text-text-muted/60 mt-2 uppercase tracking-widest">PNG, JPG atau PDF (Maks 10MB)</p>
               </div>
+              {uploadedFiles.length > 0 && (
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {uploadedFiles.map((file, i) => (
+                    <div key={i} className="flex items-center gap-2 px-3 py-1.5 bg-base-cream rounded-xl text-xs font-medium text-text-main">
+                      <span className="max-w-[160px] truncate">{file.name}</span>
+                      <button type="button" onClick={() => removeFile(i)} className="text-text-muted hover:text-red-400 transition-colors">
+                        <X size={14} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
 
             <button 

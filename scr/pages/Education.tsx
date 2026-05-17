@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { BookOpen, Search, ArrowRight, Clock, Star, Filter } from 'lucide-react';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 const articles = [
   {
@@ -41,6 +41,16 @@ const categories = ['Semua', 'Digital Safety', 'Mental Health', 'Self Care', 'Di
 
 export default function Education() {
   const [activeCategory, setActiveCategory] = useState('Semua');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredArticles = useMemo(() => {
+    return articles.filter((a) => {
+      const matchesCategory = activeCategory === 'Semua' || a.category === activeCategory;
+      const q = searchQuery.toLowerCase();
+      const matchesSearch = !q || a.title.toLowerCase().includes(q) || a.excerpt.toLowerCase().includes(q);
+      return matchesCategory && matchesSearch;
+    });
+  }, [activeCategory, searchQuery]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-16">
@@ -56,9 +66,11 @@ export default function Education() {
         </div>
         
         <div className="w-full md:w-80 relative">
-          <input 
-            type="text" 
-            placeholder="Cari artikel..." 
+          <input
+            type="text"
+            placeholder="Cari artikel..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full px-12 py-4 rounded-2xl bg-white border border-primary-sage/10 focus:ring-2 focus:ring-primary-sage/30 card-shadow"
           />
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted" size={20} />
@@ -84,8 +96,12 @@ export default function Education() {
         ))}
       </div>
 
+      {filteredArticles.length === 0 && (
+        <p className="text-center text-text-muted py-16">Tidak ada artikel yang cocok dengan pencarian Anda.</p>
+      )}
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-        {articles.map((article, index) => (
+        {filteredArticles.map((article, index) => (
           <motion.article 
             key={index}
             initial={{ opacity: 0, y: 20 }}
