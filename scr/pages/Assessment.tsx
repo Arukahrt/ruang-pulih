@@ -123,7 +123,48 @@ export default function Assessment() {
 
   const handleAnswer = (value: number) => {
     setAnswers({ ...answers, [currentQuestion.id]: value });
-    setTimeout(() => handleNext(), 300);
+  };
+
+  const categoryNarrative: Record<string, { low: string; mid: string; high: string }> = {
+    experience: {
+      low: 'Kamu tampaknya belum banyak terpapar pengalaman kekerasan digital secara langsung. Tetap waspada dan kenali tanda-tandanya sejak dini.',
+      mid: 'Kamu pernah mengalami beberapa situasi yang tidak nyaman di ruang digital. Penting untuk tidak mengabaikan perasaan tersebut.',
+      high: 'Kamu menunjukkan banyak pengalaman yang berpotensi menjadi kekerasan digital. Kamu tidak sendirian, dan apa yang kamu rasakan adalah valid.',
+    },
+    stigma: {
+      low: 'Lingkungan sekitarmu tampak cukup suportif dan tidak banyak menyalahkan korban. Terus jaga perspektif yang sehat ini.',
+      mid: 'Kamu mungkin pernah menyaksikan atau merasakan stigma di sekitarmu. Stigma itu nyata dan tidak seharusnya kamu tanggung sendiri.',
+      high: 'Kamu sangat merasakan beban stigma, baik dari lingkungan maupun dari dalam dirimu sendiri. Kamu berhak untuk didengar dan dipercaya.',
+    },
+    psychological: {
+      low: 'Kondisi emosionalmu relatif stabil. Terus rawat kesehatan mentalmu dengan cara yang menurutmu menyenangkan.',
+      mid: 'Ada beberapa dampak emosional yang kamu rasakan akibat interaksi digital. Wajar untuk merasa seperti ini — dan ada dukungan yang bisa membantumu.',
+      high: 'Kamu menanggung beban emosional yang cukup berat. Ini adalah sinyal penting untuk mencari ruang aman dan berbicara dengan seseorang yang bisa dipercaya.',
+    },
+    knowledge: {
+      low: 'Pengetahuanmu tentang kekerasan digital dan cara melindungi diri masih bisa dikembangkan lebih jauh. Halaman Edukasi kami bisa jadi titik awal yang baik.',
+      mid: 'Kamu sudah memiliki pemahaman dasar tentang keamanan digital, namun masih ada ruang untuk belajar lebih banyak.',
+      high: 'Kamu memiliki kesadaran yang baik tentang isu kekerasan digital. Pengetahuanmu ini bisa menjadi kekuatan untuk dirimu dan orang sekitarmu.',
+    },
+    protection: {
+      low: 'Kemampuan perlindungan dirimu di dunia digital masih perlu diperkuat. Coba pelajari langkah-langkah praktis di halaman Edukasi kami.',
+      mid: 'Kamu sudah memiliki beberapa kemampuan untuk melindungi diri, namun belum sepenuhnya percaya diri. Terus berlatih dan cari informasi lebih lanjut.',
+      high: 'Kamu tahu cara menjaga diri di ruang digital. Kemampuan ini sangat berharga — tetap percaya pada instingmu.',
+    },
+    needs: {
+      low: 'Saat ini kamu mungkin merasa cukup baik-baik saja. Tetapi ingat, mencari dukungan adalah tanda kekuatan, bukan kelemahan.',
+      mid: 'Kamu merasakan kebutuhan akan dukungan di beberapa area. Ada baiknya mulai menjajaki layanan yang tersedia untukmu.',
+      high: 'Kamu sangat membutuhkan ruang aman untuk bercerita dan mendapat dukungan. Kami ada untuk kamu — jangan ragu untuk menghubungi konselor kami.',
+    },
+  };
+
+  const getCategoryNarrative = (catId: string, score: number, maxScore: number) => {
+    const ratio = score / maxScore;
+    const narr = categoryNarrative[catId];
+    if (!narr) return '';
+    if (ratio > 0.6) return narr.high;
+    if (ratio > 0.3) return narr.mid;
+    return narr.low;
   };
 
   const calculateDetailedResults = () => {
@@ -163,33 +204,46 @@ export default function Assessment() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            {assessmentCategories.map(cat => (
-              <div key={cat.id} className="p-6 bg-base-cream rounded-3xl">
-                <h4 className="font-bold text-text-main mb-2">{cat.title}</h4>
-                <div className="h-2 bg-white rounded-full overflow-hidden mb-2">
-                  <motion.div 
-                    initial={{ width: 0 }}
-                    animate={{ width: `${(scores[cat.id] / (cat.questions.length * 4)) * 100}%` }}
-                    className="h-full bg-primary-sage"
-                  />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            {assessmentCategories.map(cat => {
+              const maxScore = cat.questions.length * 4;
+              const catScore = scores[cat.id] || 0;
+              const pct = (catScore / maxScore) * 100;
+              const barColor = pct > 60 ? 'bg-red-400' : pct > 30 ? 'bg-primary-blue' : 'bg-primary-sage';
+              return (
+                <div key={cat.id} className="p-6 bg-base-cream rounded-3xl space-y-3">
+                  <h4 className="font-bold text-text-main">{cat.title}</h4>
+                  <div className="h-2 bg-white rounded-full overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${pct}%` }}
+                      transition={{ duration: 0.8, ease: 'easeOut' }}
+                      className={`h-full ${barColor}`}
+                    />
+                  </div>
+                  <p className="text-sm text-text-muted leading-relaxed">
+                    {getCategoryNarrative(cat.id, catScore, maxScore)}
+                  </p>
                 </div>
-                <p className="text-xs text-text-muted italic">Kondisi berdasarkan jawaban Anda</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           <div className="bg-primary-sage/5 border border-primary-sage/10 rounded-3xl p-8 mb-12">
-             <h4 className="font-bold mb-4 flex items-center gap-2 text-primary-sage">
-               <Shield size={20} /> Langkah Pemulihan Selanjutnya
-             </h4>
-             <p className="text-text-muted leading-relaxed mb-6">
-               Berdasarkan skor Anda, kami merekomendasikan untuk {status.level === 'Tinggi' ? 'segera mendiskusikan hal ini dengan konselor profesional melalui fitur Konseling Online.' : 'mempelajari tips regulasi emosi di halaman Edukasi kami.'}
-             </p>
-             <div className="flex flex-wrap gap-4">
-               <Link to="/counseling" className="btn-soft bg-primary-sage text-white px-8">Hubungi Konselor</Link>
-               <Link to="/education" className="btn-soft bg-white text-text-main border border-primary-sage/20 px-8">Lihat Materi Edukasi</Link>
-             </div>
+            <h4 className="font-bold mb-4 flex items-center gap-2 text-primary-sage">
+              <Shield size={20} /> Langkah Selanjutnya untuk Kamu
+            </h4>
+            <p className="text-text-muted leading-relaxed mb-6">
+              {status.level === 'Tinggi'
+                ? 'Hasil asesmenmu menunjukkan bahwa kamu mungkin sedang menanggung beban yang cukup berat. Kamu tidak harus menghadapinya sendirian — konselor kami siap mendengarkan tanpa menghakimi.'
+                : status.level === 'Sedang'
+                ? 'Ada beberapa area yang perlu perhatian lebih. Mulai dari membaca artikel edukasi atau berbicara ringan dengan konselor bisa jadi langkah kecil yang bermakna.'
+                : 'Kondisimu saat ini relatif baik. Terus jaga dirimu dengan memperluas pengetahuan tentang keamanan digital dan kesehatan mental.'}
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link to="/counseling" className="btn-soft bg-primary-sage text-white px-8">Hubungi Konselor</Link>
+              <Link to="/education" className="btn-soft bg-white text-text-main border border-primary-sage/20 px-8">Lihat Materi Edukasi</Link>
+            </div>
           </div>
 
           <p className="text-center text-xs text-text-muted">Data ini bersifat rahasia dan anonim. Hasil ini bukan pengganti diagnosa medis.</p>
@@ -297,17 +351,16 @@ export default function Assessment() {
               )}
             </div>
 
-            {currentQuestion.type === 'choice' && (
-              <div className="mt-12 flex justify-end">
-                <button 
-                  onClick={handleNext}
-                  disabled={answers[currentQuestion.id] === undefined}
-                  className="btn-soft bg-primary-sage text-white disabled:opacity-50 disabled:grayscale px-10"
-                >
-                  Lanjutkan
-                </button>
-              </div>
-            )}
+            <div className="mt-12 flex justify-end">
+              <button
+                onClick={handleNext}
+                disabled={answers[currentQuestion.id] === undefined}
+                className="btn-soft bg-primary-sage text-white disabled:opacity-50 disabled:grayscale px-10 inline-flex items-center gap-2 group"
+              >
+                {step === allQuestions.length ? 'Lihat Hasil' : 'Lanjutkan'}
+                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
