@@ -27,17 +27,17 @@ function buildWhatsAppURL(data: {
     chat: 'Chat',
   };
   const message = [
-    '👋 Halo, saya ingin melakukan konseling melalui Ruang Pulih Online.',
+    'Halo, saya ingin melakukan konseling melalui Ruang Pulih Online.',
     '',
-    `📌 *Nama Panggilan:* ${data.nickname}`,
-    `📧 *Email:* ${data.email}`,
-    `🏷️ *Kategori Masalah:* ${data.category}`,
-    `📞 *Format Sesi:* ${formatLabel[data.format] ?? data.format}`,
-    `📅 *Tanggal:* ${data.date}`,
-    `🕐 *Waktu:* ${data.time}`,
-    data.notes ? `📝 *Catatan:* ${data.notes}` : '',
+    `*Nama Panggilan:* ${data.nickname}`,
+    `*Email:* ${data.email}`,
+    `*Kategori Masalah:* ${data.category}`,
+    `*Format Sesi:* ${formatLabel[data.format] ?? data.format}`,
+    `*Tanggal:* ${data.date}`,
+    `*Waktu:* ${data.time}`,
+    data.notes ? `*Catatan:* ${data.notes}` : '',
     '',
-    'Terima kasih 🙏',
+    'Terima kasih.',
   ]
     .filter((line) => line !== undefined)
     .join('\n');
