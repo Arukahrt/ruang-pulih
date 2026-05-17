@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
-import { Shield, MessageCircle, Brain, BookOpen, ArrowRight, Heart, Users, Lock } from 'lucide-react';
+import { Shield, MessageCircle, Brain, BookOpen, ArrowRight, Heart, Users, Lock, Clock, BookMarked } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { articles } from '../data/articles';
 
 const services = [
   {
@@ -92,11 +93,11 @@ export default function Home() {
             className="flex-1 relative"
           >
             <div className="relative z-10 rounded-[3rem] overflow-hidden card-shadow bg-white p-2">
-              <img 
-                src="https://picsum.photos/seed/healing-safe/800/800" 
+              <img
+                src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&h=500&q=80"
                 alt="Safe healing space"
                 className="rounded-[2.8rem] w-full h-[500px] object-cover"
-                referrerPolicy="no-referrer"
+                crossOrigin="anonymous"
               />
               <div className="absolute bottom-8 left-8 right-8 glass-morphism rounded-3xl p-6">
                 <div className="flex items-center gap-4">
@@ -158,12 +159,12 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row items-center gap-20">
             <div className="flex-1 grid grid-cols-2 gap-4">
               <div className="space-y-4">
-                <img src="https://picsum.photos/seed/support1/400/500" className="rounded-3xl h-64 w-full object-cover" alt="Support" referrerPolicy="no-referrer" />
-                <img src="https://picsum.photos/seed/support2/400/300" className="rounded-3xl h-40 w-full object-cover" alt="Support" referrerPolicy="no-referrer" />
+                <img src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?auto=format&fit=crop&w=400&h=256&q=80" className="rounded-3xl h-64 w-full object-cover" alt="Support" crossOrigin="anonymous" />
+                <img src="https://images.unsplash.com/photo-1516585427167-9f4af9627e6c?auto=format&fit=crop&w=400&h=160&q=80" className="rounded-3xl h-40 w-full object-cover" alt="Support" crossOrigin="anonymous" />
               </div>
               <div className="space-y-4 pt-12">
-                <img src="https://picsum.photos/seed/support3/400/300" className="rounded-3xl h-40 w-full object-cover" alt="Support" referrerPolicy="no-referrer" />
-                <img src="https://picsum.photos/seed/support4/400/500" className="rounded-3xl h-64 w-full object-cover" alt="Support" referrerPolicy="no-referrer" />
+                <img src="https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=400&h=160&q=80" className="rounded-3xl h-40 w-full object-cover" alt="Support" crossOrigin="anonymous" />
+                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=400&h=256&q=80" className="rounded-3xl h-64 w-full object-cover" alt="Support" crossOrigin="anonymous" />
               </div>
             </div>
             <div className="flex-1">
@@ -186,6 +187,77 @@ export default function Home() {
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Article Preview Section */}
+      <section className="py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+            <div>
+              <h2 className="text-4xl md:text-5xl mb-4">Artikel <span className="italic text-primary-sage">Edukasi</span></h2>
+              <p className="text-text-muted max-w-xl">Bacaan ringan namun bermakna untuk memahami isu digital, melindungi diri, dan merawat kesehatan mental.</p>
+            </div>
+            <Link to="/education" className="flex items-center gap-2 text-primary-sage font-semibold whitespace-nowrap group">
+              Lihat Semua Artikel <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {articles.slice(0, 3).map((article, index) => (
+              <motion.article
+                key={article.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="group flex flex-col bg-base-cream/50 rounded-[2.5rem] overflow-hidden hover:bg-white hover:card-shadow transition-all duration-500 border border-transparent hover:border-primary-sage/10"
+              >
+                <div className="relative overflow-hidden h-52">
+                  <img
+                    src={article.image}
+                    alt={article.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    crossOrigin="anonymous"
+                  />
+                  <div className="absolute top-4 left-4 px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-bold uppercase tracking-wider text-primary-sage">
+                    {article.category}
+                  </div>
+                </div>
+                <div className="p-8 flex flex-col flex-grow">
+                  <div className="flex items-center gap-2 text-xs text-text-muted mb-3 uppercase font-bold tracking-widest">
+                    <Clock size={12} /> {article.readTime}
+                  </div>
+                  <h3 className="text-lg font-bold mb-3 group-hover:text-primary-sage transition-colors line-clamp-2">{article.title}</h3>
+                  <p className="text-text-muted text-sm leading-relaxed mb-6 flex-grow line-clamp-3">{article.excerpt}</p>
+                  <Link
+                    to={`/education/${article.id}`}
+                    className="flex items-center gap-2 text-primary-sage text-sm font-semibold group/link"
+                  >
+                    Baca Selengkapnya <ArrowRight size={16} className="transition-transform group-hover/link:translate-x-1" />
+                  </Link>
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Jurnal Referensi Banner */}
+      <section className="py-16 bg-base-cream">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row items-center gap-10 bg-white rounded-[3rem] p-10 md:p-14 card-shadow border border-primary-lavender/10">
+            <div className="w-16 h-16 bg-primary-lavender/20 text-primary-lavender rounded-3xl flex items-center justify-center flex-shrink-0">
+              <BookMarked size={32} />
+            </div>
+            <div className="flex-1 text-center md:text-left">
+              <h3 className="text-2xl md:text-3xl font-bold mb-3">Jurnal Referensi Akademik</h3>
+              <p className="text-text-muted leading-relaxed">Kumpulan jurnal ilmiah terpilih seputar pelecehan seksual online, psikologi korban, hukum siber, dan pemulihan trauma — untuk pemahaman yang lebih dalam.</p>
+            </div>
+            <Link to="/jurnal" className="btn-soft bg-primary-lavender text-white shadow-lg shadow-primary-lavender/20 px-10 whitespace-nowrap flex-shrink-0">
+              Lihat Jurnal
+            </Link>
           </div>
         </div>
       </section>
