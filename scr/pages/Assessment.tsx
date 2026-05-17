@@ -93,11 +93,10 @@ const assessmentCategories = [
 const allQuestions = assessmentCategories.flatMap(c => c.questions.map(q => ({ ...q, categoryId: c.id })));
 
 const likertOptions = [
-  { label: 'Sangat Tidak Sesuai', value: 0 },
-  { label: 'Tidak Sesuai', value: 1 },
-  { label: 'Ragu-ragu', value: 2 },
-  { label: 'Sesuai', value: 3 },
   { label: 'Sangat Sesuai', value: 4 },
+  { label: 'Sesuai', value: 3 },
+  { label: 'Tidak Sesuai', value: 1 },
+  { label: 'Sangat Tidak Sesuai', value: 0 },
 ];
 
 export default function Assessment() {
@@ -314,7 +313,7 @@ export default function Assessment() {
 
             <div className="space-y-4">
               {currentQuestion.type === 'likert' ? (
-                <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   {likertOptions.map((opt) => (
                     <button
                       key={opt.value}
