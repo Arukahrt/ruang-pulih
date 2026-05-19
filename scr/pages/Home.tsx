@@ -20,13 +20,6 @@ const services = [
     path: '/assessment'
   },
   {
-    title: 'Curhat & Cerita',
-    description: 'Ceritakan pengalaman Anda dalam ruang aman bersama konselor yang mendengarkan tanpa menghakimi.',
-    icon: Heart,
-    color: 'bg-primary-lavender',
-    path: '/counseling'
-  },
-  {
     title: 'Edukasi Digital',
     description: 'Pelajari cara melindungi diri dan berinteraksi sehat di media sosial.',
     icon: BookOpen,
