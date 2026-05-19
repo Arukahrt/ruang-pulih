@@ -25,6 +25,13 @@ const services = [
     icon: BookOpen,
     color: 'bg-primary-sage',
     path: '/education'
+  },
+  {
+    title: 'Jurnal Referensi',
+    description: 'Kumpulan jurnal ilmiah seputar pelecehan seksual online, psikologi korban, dan pemulihan trauma.',
+    icon: BookMarked,
+    color: 'bg-primary-lavender',
+    path: '/jurnal'
   }
 ];
 
