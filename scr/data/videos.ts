@@ -8,13 +8,6 @@ export type Video = {
 
 export const videos: Video[] = [
   {
-    id: 'vid-1',
-    title: '18 Mei 2026',
-    category: 'Digital Awareness',
-    youtubeId: 'z6wu6bfu14Q',
-    description: 'Konten dari Handoko Murti seputar isu kekerasan seksual digital.',
-  },
-  {
     id: 'vid-2',
     title: 'Jangan Menyalahkan Korban',
     category: 'Self Care',

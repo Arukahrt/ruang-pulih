@@ -1,8 +1,8 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { Link, useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { cn } from '../lib/utils';
-import { Shield, Brain, MessageCircle, BookOpen, PlayCircle, HelpCircle, Menu, X, BookMarked } from 'lucide-react';
+import { Shield, Brain, MessageCircle, BookOpen, PlayCircle, HelpCircle, Menu, X, BookMarked, ChevronDown } from 'lucide-react';
 
 const navItems = [
   { name: 'Home', path: '/', icon: Shield },
@@ -19,17 +19,37 @@ const educationItems = [
 export default function Navbar() {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [eduOpen, setEduOpen] = useState(false);
+  const [mobileEduOpen, setMobileEduOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const isArticleActive =
+  const isEducationActive =
     location.pathname === '/education' ||
-    (location.pathname.startsWith('/education/') && location.pathname !== '/education/video');
-  const isVideoActive = location.pathname === '/education/video';
+    location.pathname.startsWith('/education/');
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setEduOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Close dropdown on route change
+  useEffect(() => {
+    setEduOpen(false);
+    setMenuOpen(false);
+  }, [location.pathname]);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-base-cream/80 backdrop-blur-md border-b border-primary-sage/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 items-center">
-          <Link to="/" className="flex items-center space-x-2 group" onClick={() => setMenuOpen(false)}>
+          {/* Logo */}
+          <Link to="/" className="flex items-center space-x-2 group">
             <div className="w-10 h-10 bg-primary-sage rounded-xl flex items-center justify-center text-white transition-transform group-hover:scale-105">
               <Shield size={24} />
             </div>
@@ -39,8 +59,8 @@ export default function Navbar() {
             </div>
           </Link>
 
+          {/* Desktop nav */}
           <div className="hidden md:flex items-center space-x-1">
-            {/* Home & Assessment */}
             {navItems.slice(0, 2).map((item) => {
               const isActive = location.pathname === item.path;
               return (
@@ -48,44 +68,72 @@ export default function Navbar() {
                   key={item.name}
                   to={item.path}
                   className={cn(
-                    'px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 relative group',
+                    'px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 relative',
                     isActive ? 'text-primary-sage' : 'text-text-muted hover:text-text-main hover:bg-primary-sage/5'
                   )}
                 >
                   {item.name}
                   {isActive && (
-                    <motion.div
-                      layoutId="nav-underline"
-                      className="absolute bottom-0 left-4 right-4 h-0.5 bg-primary-sage"
-                    />
+                    <motion.div layoutId="nav-underline" className="absolute bottom-0 left-4 right-4 h-0.5 bg-primary-sage" />
                   )}
                 </Link>
               );
             })}
 
-            {/* Edukasi group */}
-            <div className="flex items-center gap-0.5 mx-1 px-2 py-1 rounded-2xl bg-primary-sage/5 border border-primary-sage/10">
-              <span className="text-[11px] font-bold text-text-muted/50 uppercase tracking-wider pr-2">Edukasi</span>
-              {educationItems.map((item) => {
-                const isActive = item.path === '/education' ? isArticleActive : isVideoActive;
-                return (
-                  <Link
-                    key={item.name}
-                    to={item.path}
-                    className={cn(
-                      'px-3 py-1.5 rounded-xl text-sm font-medium transition-all duration-200',
-                      isActive
-                        ? 'bg-white text-primary-sage shadow-sm'
-                        : 'text-text-muted hover:text-text-main hover:bg-white/60'
-                    )}
+            {/* Edukasi dropdown */}
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setEduOpen((v) => !v)}
+                className={cn(
+                  'flex items-center gap-1 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 relative',
+                  isEducationActive ? 'text-primary-sage' : 'text-text-muted hover:text-text-main hover:bg-primary-sage/5'
+                )}
+              >
+                Edukasi
+                <ChevronDown
+                  size={15}
+                  className={cn('transition-transform duration-200', eduOpen ? 'rotate-180' : '')}
+                />
+                {isEducationActive && (
+                  <motion.div layoutId="nav-underline" className="absolute bottom-0 left-4 right-4 h-0.5 bg-primary-sage" />
+                )}
+              </button>
+
+              <AnimatePresence>
+                {eduOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 6, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 6, scale: 0.97 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute top-full left-0 mt-2 w-44 bg-white rounded-2xl shadow-lg border border-primary-sage/10 overflow-hidden"
                   >
-                    {item.name}
-                  </Link>
-                );
-              })}
+                    {educationItems.map((item) => {
+                      const isActive =
+                        item.path === '/education/video'
+                          ? location.pathname === '/education/video'
+                          : location.pathname === '/education' || (location.pathname.startsWith('/education/') && location.pathname !== '/education/video');
+                      return (
+                        <Link
+                          key={item.name}
+                          to={item.path}
+                          className={cn(
+                            'flex items-center gap-3 px-4 py-3 text-sm font-medium transition-colors',
+                            isActive
+                              ? 'bg-primary-sage/10 text-primary-sage'
+                              : 'text-text-muted hover:bg-base-cream hover:text-text-main'
+                          )}
+                        >
+                          <item.icon size={16} />
+                          {item.name}
+                        </Link>
+                      );
+                    })}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
-            {/* Jurnal & FAQ */}
             {navItems.slice(2).map((item) => {
               const isActive = location.pathname === item.path;
               return (
@@ -93,16 +141,13 @@ export default function Navbar() {
                   key={item.name}
                   to={item.path}
                   className={cn(
-                    'px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 relative group',
+                    'px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 relative',
                     isActive ? 'text-primary-sage' : 'text-text-muted hover:text-text-main hover:bg-primary-sage/5'
                   )}
                 >
                   {item.name}
                   {isActive && (
-                    <motion.div
-                      layoutId="nav-underline"
-                      className="absolute bottom-0 left-4 right-4 h-0.5 bg-primary-sage"
-                    />
+                    <motion.div layoutId="nav-underline" className="absolute bottom-0 left-4 right-4 h-0.5 bg-primary-sage" />
                   )}
                 </Link>
               );
@@ -116,6 +161,7 @@ export default function Navbar() {
             </Link>
           </div>
 
+          {/* Mobile hamburger */}
           <button
             className="md:hidden p-2 rounded-xl text-text-muted hover:bg-primary-sage/10 hover:text-primary-sage transition-colors"
             onClick={() => setMenuOpen((v) => !v)}
@@ -126,6 +172,7 @@ export default function Navbar() {
         </div>
       </div>
 
+      {/* Mobile menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -136,7 +183,6 @@ export default function Navbar() {
             className="md:hidden overflow-hidden bg-base-cream/95 backdrop-blur-md border-t border-primary-sage/10"
           >
             <div className="px-4 py-4 flex flex-col gap-1">
-              {/* Home & Assessment */}
               {navItems.slice(0, 2).map((item) => {
                 const isActive = location.pathname === item.path;
                 return (
@@ -155,29 +201,59 @@ export default function Navbar() {
                 );
               })}
 
-              {/* Mobile: Edukasi group */}
-              <div className="mt-1 mb-1">
-                <span className="px-4 text-[10px] font-bold text-text-muted/40 uppercase tracking-widest">Edukasi</span>
-                {educationItems.map((item) => {
-                  const isActive = item.path === '/education' ? isArticleActive : isVideoActive;
-                  return (
-                    <Link
-                      key={item.name}
-                      to={item.path}
-                      onClick={() => setMenuOpen(false)}
-                      className={cn(
-                        'flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-medium transition-all',
-                        isActive ? 'bg-primary-sage/10 text-primary-sage' : 'text-text-muted hover:bg-primary-sage/5 hover:text-text-main'
-                      )}
+              {/* Mobile Edukasi accordion */}
+              <div>
+                <button
+                  onClick={() => setMobileEduOpen((v) => !v)}
+                  className={cn(
+                    'w-full flex items-center justify-between gap-3 px-4 py-3 rounded-2xl text-sm font-medium transition-all',
+                    isEducationActive ? 'bg-primary-sage/10 text-primary-sage' : 'text-text-muted hover:bg-primary-sage/5 hover:text-text-main'
+                  )}
+                >
+                  <span className="flex items-center gap-3">
+                    <BookOpen size={18} />
+                    Edukasi
+                  </span>
+                  <ChevronDown
+                    size={16}
+                    className={cn('transition-transform duration-200', mobileEduOpen ? 'rotate-180' : '')}
+                  />
+                </button>
+
+                <AnimatePresence>
+                  {mobileEduOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="overflow-hidden pl-4"
                     >
-                      <item.icon size={18} />
-                      {item.name}
-                    </Link>
-                  );
-                })}
+                      {educationItems.map((item) => {
+                        const isActive =
+                          item.path === '/education/video'
+                            ? location.pathname === '/education/video'
+                            : location.pathname === '/education' || (location.pathname.startsWith('/education/') && location.pathname !== '/education/video');
+                        return (
+                          <Link
+                            key={item.name}
+                            to={item.path}
+                            onClick={() => { setMenuOpen(false); setMobileEduOpen(false); }}
+                            className={cn(
+                              'flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-medium transition-all',
+                              isActive ? 'bg-primary-sage/10 text-primary-sage' : 'text-text-muted hover:bg-primary-sage/5 hover:text-text-main'
+                            )}
+                          >
+                            <item.icon size={16} />
+                            {item.name}
+                          </Link>
+                        );
+                      })}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
-              {/* Jurnal & FAQ */}
               {navItems.slice(2).map((item) => {
                 const isActive = location.pathname === item.path;
                 return (
