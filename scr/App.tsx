@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Assessment from './pages/Assessment';
 import Counseling from './pages/Counseling';
 import Education from './pages/Education';
+import Video from './pages/Video';
 import FAQ from './pages/FAQ';
 import Jurnal from './pages/Jurnal';
 import ArticleDetail from './pages/ArticleDetail';
@@ -46,6 +47,7 @@ export default function App() {
             <Route path="/assessment" element={<Assessment />} />
             <Route path="/counseling" element={<Counseling />} />
             <Route path="/education" element={<Education />} />
+            <Route path="/education/video" element={<Video />} />
             <Route path="/education/:id" element={<ArticleDetail />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/jurnal" element={<Jurnal />} />
