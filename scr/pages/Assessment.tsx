@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Brain, ArrowRight, ArrowLeft, CheckCircle2, AlertCircle, Info, Shield, Lock } from 'lucide-react';
+import { Brain, ArrowRight, ArrowLeft, CheckCircle2, AlertCircle, Info, Shield, Lock, AlertTriangle, Users, BookOpen, ShieldCheck, Heart } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { Link } from 'react-router-dom';
 
@@ -10,6 +10,44 @@ type Question = {
   type: 'likert' | 'choice';
   options?: string[];
 };
+
+function AssessmentIllustration() {
+  const satellites = [
+    { x: 140, y: 42, color: '#FF8A65' },
+    { x: 216, y: 86, color: '#9b8ec4' },
+    { x: 216, y: 174, color: '#7eb5cc' },
+    { x: 140, y: 218, color: '#6b8f71' },
+    { x: 64, y: 174, color: '#52A08E' },
+    { x: 64, y: 86, color: '#e88fb5' },
+  ];
+  return (
+    <svg viewBox="0 0 280 260" className="w-full max-w-xs mx-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="140" cy="130" r="115" fill="#6b8f71" fillOpacity="0.05" />
+      <circle cx="140" cy="130" r="87" fill="#6b8f71" fillOpacity="0.05" />
+      {satellites.map((s, i) => (
+        <line key={i} x1="140" y1="130" x2={s.x} y2={s.y} stroke={s.color} strokeOpacity="0.22" strokeWidth="1.5" strokeDasharray="4 3" />
+      ))}
+      {satellites.map((s, i) => (
+        <g key={i}>
+          <circle cx={s.x} cy={s.y} r="21" fill="white" />
+          <circle cx={s.x} cy={s.y} r="21" fill={s.color} fillOpacity="0.12" stroke={s.color} strokeWidth="1.5" strokeOpacity="0.35" />
+          <text x={s.x} y={s.y + 1} textAnchor="middle" dominantBaseline="middle" fontSize="11" fontWeight="700" fill={s.color}>{i + 1}</text>
+        </g>
+      ))}
+      <circle cx="140" cy="130" r="36" fill="#6b8f71" />
+      <path d="M127 130 L136 141 L154 119" stroke="white" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+const categoryInfo = [
+  { icon: AlertTriangle, color: '#FF8A65', bg: '#FF8A650F', title: 'Pengalaman Kekerasan Digital', desc: 'Apakah kamu pernah mengalami situasi tidak nyaman di ruang digital?' },
+  { icon: Users,         color: '#9b8ec4', bg: '#9b8ec40F', title: 'Stigmatisasi Korban',           desc: 'Bagaimana respons lingkungan sekitarmu terhadap korban?' },
+  { icon: Brain,         color: '#7eb5cc', bg: '#7eb5cc0F', title: 'Dampak Psikologis',              desc: 'Bagaimana kondisi emosional yang kamu rasakan saat ini?' },
+  { icon: BookOpen,      color: '#6b8f71', bg: '#6b8f710F', title: 'Pengetahuan & Kesadaran',        desc: 'Seberapa paham kamu tentang keamanan dan hak digitalmu?' },
+  { icon: ShieldCheck,   color: '#52A08E', bg: '#52A08E0F', title: 'Perlindungan Diri',              desc: 'Seberapa siap kamu melindungi diri di ruang digital?' },
+  { icon: Heart,         color: '#e88fb5', bg: '#e88fb50F', title: 'Kebutuhan Layanan',              desc: 'Dukungan apa yang paling kamu butuhkan sekarang?' },
+];
 
 const assessmentCategories = [
   {
@@ -252,7 +290,7 @@ export default function Assessment() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-20 min-h-[80vh] flex flex-col justify-center">
+    <div className="px-4 py-12">
       <AnimatePresence mode="wait">
         {step === 0 ? (
           <motion.div
@@ -260,24 +298,58 @@ export default function Assessment() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="text-center"
+            className="max-w-5xl mx-auto"
           >
-            <div className="w-20 h-20 bg-primary-sage/10 text-primary-sage rounded-3xl flex items-center justify-center mx-auto mb-10">
-              <Brain size={40} />
+            {/* Header: Illustration + Text */}
+            <div className="flex flex-col lg:flex-row items-center gap-12 mb-16">
+              <div className="lg:w-72 flex-shrink-0">
+                <AssessmentIllustration />
+              </div>
+              <div className="text-center lg:text-left">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-sage/10 text-primary-sage text-sm font-semibold mb-6">
+                  <Brain size={15} /> Asesmen Kondisi Emosional
+                </div>
+                <h1 className="text-4xl md:text-5xl font-bold mb-6">
+                  Pahami Kondisi Dirimu <span className="italic text-primary-sage">Lebih Dalam</span>
+                </h1>
+                <p className="text-lg text-text-muted mb-8 leading-relaxed">
+                  Asesmen ini dirancang untuk memetakan kondisi emosionalmu secara menyeluruh dan memberikan rekomendasi dukungan yang tepat. Privasi terjamin — sepenuhnya anonim.
+                </p>
+                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 text-sm text-text-muted mb-8">
+                  <div className="flex items-center gap-2"><Lock size={15} /> 100% Anonim</div>
+                  <div className="flex items-center gap-2"><Info size={15} /> ~30 Menit</div>
+                  <div className="flex items-center gap-2"><CheckCircle2 size={15} /> 40 Pertanyaan</div>
+                </div>
+                <button
+                  onClick={() => setStep(1)}
+                  className="btn-soft bg-primary-sage text-white px-10 py-4 text-lg shadow-xl shadow-primary-sage/20 inline-flex items-center gap-3 group"
+                >
+                  Mulai Asesmen <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+                </button>
+              </div>
             </div>
-            <h1 className="text-4xl md:text-6xl mb-6">Asesmen <span className="italic">Kondisi Emosional</span></h1>
-            <p className="text-lg text-text-muted max-w-2xl mx-auto mb-12">
-              Asesmen ini dirancang untuk memetakan kondisi emosional Anda dan memberikan rekomendasi dukungan yang tepat. Privasi Anda terjamin dan partisipasi dilakukan secara anonim.
-            </p>
-            <button 
-              onClick={() => setStep(1)}
-              className="btn-soft bg-primary-sage text-white px-12 py-4 text-xl shadow-xl shadow-primary-sage/20 inline-flex items-center gap-4 group"
-            >
-              Mulai Asesmen <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-            </button>
-            <div className="mt-12 flex items-center justify-center gap-8 text-sm text-text-muted">
-              <div className="flex items-center gap-2"><Lock size={16} /> 100% Anonim</div>
-              <div className="flex items-center gap-2"><Info size={16} /> Estimasi 30 Menit</div>
+
+            {/* 6 Category Cards */}
+            <div>
+              <p className="text-center text-xs font-bold text-text-muted uppercase tracking-widest mb-6">
+                Asesmen ini mencakup 6 aspek utama
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {categoryInfo.map((cat, i) => (
+                  <div key={i} className="flex items-start gap-4 p-5 rounded-2xl" style={{ backgroundColor: cat.bg }}>
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: cat.color + '25' }}>
+                      <cat.icon size={20} style={{ color: cat.color }} />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-xs font-black" style={{ color: cat.color }}>{i + 1}</span>
+                        <h4 className="text-sm font-bold text-text-main">{cat.title}</h4>
+                      </div>
+                      <p className="text-xs text-text-muted leading-relaxed">{cat.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </motion.div>
         ) : (
@@ -286,7 +358,7 @@ export default function Assessment() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
-            className="bg-white rounded-[3rem] p-8 md:p-16 card-shadow relative overflow-hidden"
+            className="max-w-4xl mx-auto min-h-[70vh] flex flex-col justify-center bg-white rounded-[3rem] p-8 md:p-16 card-shadow relative overflow-hidden"
           >
             {/* Progress Bar */}
             <div className="absolute top-0 left-0 right-0 h-2 bg-base-cream">

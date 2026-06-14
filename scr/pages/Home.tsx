@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Shield, MessageCircle, Brain, BookOpen, ArrowRight, Heart, Users, Lock, Clock, BookMarked } from 'lucide-react';
+import { Shield, MessageCircle, Brain, BookOpen, ArrowRight, Heart, Users, Lock, Clock, BookMarked, CheckCircle2 } from 'lucide-react';
 
 import { Link } from 'react-router-dom';
 import { articles } from '../data/articles';
@@ -33,6 +33,46 @@ const services = [
     color: 'bg-primary-lavender',
     path: '/jurnal'
   }
+];
+
+// Update harga dan benefit sesuai paket aktual
+const packages = [
+  {
+    name: 'Eksplorasi',
+    price: 'Gratis',
+    period: '',
+    featured: false,
+    icon: BookOpen,
+    iconColor: '#6b8f71',
+    iconBg: '#6b8f7118',
+    path: '/assessment',
+    cta: 'Mulai Gratis',
+    benefits: ['Asesmen kondisi emosional', 'Akses artikel edukasi digital', 'Akses video edukasi', 'Jurnal referensi akademik'],
+  },
+  {
+    name: 'Konsultasi',
+    price: 'Rp 150.000',
+    period: '/ sesi',
+    featured: true,
+    icon: MessageCircle,
+    iconColor: '#7eb5cc',
+    iconBg: '#7eb5cc18',
+    path: '/counseling',
+    cta: 'Mulai Konsultasi',
+    benefits: ['Semua fitur Eksplorasi', '1 sesi konseling online', 'Laporan asesmen detail', 'Panduan pemulihan personal'],
+  },
+  {
+    name: 'Pemulihan',
+    price: 'Rp 350.000',
+    period: '/ bulan',
+    featured: false,
+    icon: Heart,
+    iconColor: '#9b8ec4',
+    iconBg: '#9b8ec418',
+    path: '/counseling',
+    cta: 'Mulai Pemulihan',
+    benefits: ['Semua fitur Konsultasi', 'Konseling tidak terbatas', 'Prioritas respons konselor', 'Pendampingan pemulihan intensif'],
+  },
 ];
 
 const container = {
@@ -154,6 +194,68 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Packages Section */}
+      <section className="py-32 bg-base-cream">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl mb-6">Paket <span className="italic text-primary-sage">Layanan</span></h2>
+            <p className="text-text-muted max-w-2xl mx-auto">Pilih paket yang sesuai dengan kebutuhanmu. Semua paket dirancang untuk memberikan rasa aman dan dukungan nyata.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+            {packages.map((pkg, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                viewport={{ once: true }}
+                className={`relative bg-white rounded-[2.5rem] p-8 flex flex-col ${pkg.featured ? 'ring-2 ring-primary-sage shadow-2xl shadow-primary-sage/15 md:scale-105' : 'card-shadow'}`}
+              >
+                {pkg.featured && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-6 py-1.5 bg-primary-sage text-white text-xs font-bold uppercase tracking-widest rounded-full whitespace-nowrap">
+                    Paling Populer
+                  </div>
+                )}
+
+                {/* Illustration */}
+                <div className="relative w-24 h-24 mx-auto mb-6">
+                  <div className="absolute inset-0 rounded-3xl" style={{ backgroundColor: pkg.iconColor, opacity: 0.08 }} />
+                  <div className="absolute inset-2 rounded-2xl" style={{ backgroundColor: pkg.iconColor, opacity: 0.12 }} />
+                  <div className="absolute inset-3 rounded-xl flex items-center justify-center" style={{ backgroundColor: pkg.iconBg }}>
+                    <pkg.icon size={40} style={{ color: pkg.iconColor }} />
+                  </div>
+                  <div className="absolute -top-2 -right-2 w-5 h-5 rounded-full" style={{ backgroundColor: pkg.iconColor, opacity: 0.25 }} />
+                  <div className="absolute -bottom-1 -left-2 w-3 h-3 rounded-full" style={{ backgroundColor: pkg.iconColor, opacity: 0.18 }} />
+                </div>
+
+                <h3 className="text-2xl font-bold text-center mb-2">{pkg.name}</h3>
+                <div className="text-center mb-6">
+                  <span className="text-3xl font-bold text-text-main">{pkg.price}</span>
+                  {pkg.period && <span className="text-text-muted text-sm ml-1">{pkg.period}</span>}
+                </div>
+
+                <ul className="space-y-3 mb-8 flex-grow">
+                  {pkg.benefits.map((b, j) => (
+                    <li key={j} className="flex items-start gap-3 text-sm">
+                      <CheckCircle2 size={17} className="flex-shrink-0 mt-0.5" style={{ color: pkg.iconColor }} />
+                      <span className="text-text-muted">{b}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <Link
+                  to={pkg.path}
+                  className={`btn-soft text-center block w-full ${pkg.featured ? 'bg-primary-sage text-white shadow-lg shadow-primary-sage/20' : 'bg-base-cream text-text-main hover:bg-primary-sage/10'}`}
+                >
+                  {pkg.cta}
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+          <p className="text-center text-xs text-text-muted mt-10 opacity-60">* Harga adalah placeholder — perbarui sesuai paket aktual.</p>
+        </div>
+      </section>
+
       {/* About Section */}
       <section className="py-32 bg-base-cream relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -241,24 +343,6 @@ export default function Home() {
                 </div>
               </motion.article>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Jurnal Referensi Banner */}
-      <section className="py-16 bg-base-cream">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center gap-10 bg-white rounded-[3rem] p-10 md:p-14 card-shadow border border-primary-lavender/10">
-            <div className="w-16 h-16 bg-primary-lavender/20 text-primary-lavender rounded-3xl flex items-center justify-center flex-shrink-0">
-              <BookMarked size={32} />
-            </div>
-            <div className="flex-1 text-center md:text-left">
-              <h3 className="text-2xl md:text-3xl font-bold mb-3">Jurnal Referensi Akademik</h3>
-              <p className="text-text-muted leading-relaxed">Kumpulan jurnal ilmiah terpilih seputar pelecehan seksual online, psikologi korban, hukum siber, dan pemulihan trauma — untuk pemahaman yang lebih dalam.</p>
-            </div>
-            <Link to="/jurnal" className="btn-soft bg-primary-lavender text-white shadow-lg shadow-primary-lavender/20 px-10 whitespace-nowrap flex-shrink-0">
-              Lihat Jurnal
-            </Link>
           </div>
         </div>
       </section>
